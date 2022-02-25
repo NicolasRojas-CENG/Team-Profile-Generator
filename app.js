@@ -4,6 +4,21 @@ const inquirer = require('inquirer');
 // const writeFile = require('./utils/generateSite');
 const prompt = require('prompt-sync')();
 
+const answerArray = [];
+
+const validateAnswerNums = checks => ({
+    validate: input => {
+        if (input === '') {
+            return 'The answer must be a number above 0.'
+        }
+        return checks ? checks(input) : true
+    },
+    filter: input => {
+        // clear the invalid input
+        return (Number.isNaN(input) || Number(input) <= 0 ? '' : Number(input))
+    },
+})
+
 //The array of the questions to be asked to the user.
 const extraQuestions = [{
   name: 'project',
@@ -24,14 +39,7 @@ const extraQuestions = [{
     type: 'number',
     name: 'id',
     message: 'What is the employee\'s id number?',
-    validate: testId => {
-      if (testId) {
-        return true;
-      } else {
-        console.log('You need to enter the employee\'s id number.\n');
-        return false;
-      }
-    }
+    ...validateAnswerNums(),
   },{
     type: 'input',
     name: 'email',
@@ -80,14 +88,7 @@ const extraQuestions = [{
     name: 'github',
     message: 'What is the manager\'s office number?',
     when: (answers) => answers.role == "Manager",
-    validate: testInput => {
-      if (testInput) {
-        return true;
-      } else {
-        console.log('You need to enter the manager\'s office number.\n');
-        return false;
-      }
-    }
+    ...validateAnswerNums(),
   },{
         type: 'confirm',
         name: 'confirmAddProject',
@@ -125,8 +126,8 @@ const instructionsPrompt = () => {
 
 //Function used to start the prompts.
 function readmeInfoPrompt(){
-  console.log("");
-  return inquirer.prompt(extraQuestions);
+    console.log("");
+    return inquirer.prompt(extraQuestions);
 }
 
 //Function used to end the app if the user chose to.
