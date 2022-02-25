@@ -127,7 +127,10 @@ const instructionsPrompt = () => {
 //Function used to start the prompts.
 function readmeInfoPrompt(){
     console.log("");
-    return inquirer.prompt(extraQuestions);
+    inquirer.prompt(extraQuestions, function (answers) {
+        console.log(answers);
+    });
+    //return inquirer.prompt(extraQuestions);
 }
 
 //Function used to end the app if the user chose to.
