@@ -5,6 +5,7 @@ const inquirer = require('inquirer');
 const prompt = require('prompt-sync')();
 
 const answerArray = [];
+var count = 0;
 
 const validateAnswerNums = checks => ({
     validate: input => {
@@ -20,9 +21,10 @@ const validateAnswerNums = checks => ({
 })
 
 //The array of the questions to be asked to the user.
-const extraQuestions = [{
+const infoQuestions = [{
   name: 'project',
-  message: 'Once you have read the instructions, press (Enter) to start building.\n'
+  message: 'Once you have read the instructions, press (Enter) to start building.\n',
+  when: () => count == 0
 },{
   type: 'input',
   name: 'employee',
@@ -97,9 +99,9 @@ const extraQuestions = [{
     }];
 
 //Function used as a main.
-function init() {
+ function init() {
   instructionsPrompt();
-  readmeInfoPrompt()
+  employeeInfoPrompt()
 //   .then(readmeData => {
 //     return generatePage(readmeData);
 //   }).then(readme => {
@@ -125,12 +127,15 @@ const instructionsPrompt = () => {
 }
 
 //Function used to start the prompts.
-function readmeInfoPrompt(){
-    console.log("");
-    inquirer.prompt(extraQuestions, function (answers) {
-        console.log(answers);
-    });
-    //return inquirer.prompt(extraQuestions);
+function employeeInfoPrompt(){
+  console.log("");
+  inquirer.prompt(infoQuestions).then(function (answers) {
+  answerArray.push(answers);
+  count++;
+  console.log(answerArray);
+  const {confirmAddProject} = answers;
+  (confirmAddProject ? employeeInfoPrompt() : answerArray)
+});
 }
 
 //Function used to end the app if the user chose to.
