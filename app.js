@@ -1,7 +1,7 @@
 //Importing different functions from other files/modules.
 const inquirer = require('inquirer');
-// const generatePage = require('./src/js/html_template');
-// const writeFile = require('./utils/generateSite');
+const generatePage = require('./src/html_template');
+// const writeFile = require('./src/generateSite');
 const prompt = require('prompt-sync')();
 
 const answerArray = [];
@@ -22,21 +22,21 @@ const validateAnswerNums = checks => ({
 
 //The array of the questions to be asked to the user.
 const infoQuestions = [{
-  name: 'project',
-  message: 'Once you have read the instructions, press (Enter) to start building.\n',
-  when: () => count == 0
+    name: 'project',
+    message: 'Once you have read the instructions, press (Enter) to start building.\n',
+    when: () => count == 0
 },{
-  type: 'input',
-  name: 'employee',
-  message: 'What is the name of the employee?',
-  validate: testInput => {
-    if (testInput) {
-      return true;
-    } else {
-      console.log('You need to enter the name of the employee.\n');
-      return false;
+    type: 'input',
+    name: 'employee',
+    message: 'What is the name of the employee?',
+    validate: testInput => {
+        if (testInput) {
+        return true;
+        } else {
+            console.log('You need to enter the name of the employee.\n');
+        return false;
+        }
     }
-  }
 },{
     type: 'number',
     name: 'id',
@@ -65,12 +65,12 @@ const infoQuestions = [{
     message: 'What is the intern\'s school?',
     when: (answers) => answers.role == "Intern",
     validate: testInput => {
-      if (testInput) {
-        return true;
-      } else {
-        console.log('You need to enter the intern\'s school.\n');
-        return false;
-      }
+        if (testInput) {
+            return true;
+        } else {
+            console.log('You need to enter the intern\'s school.\n');
+            return false;
+        }
     }
   },{
     type: 'input',
@@ -78,12 +78,12 @@ const infoQuestions = [{
     message: 'What is the engineer\'s GetHub username?',
     when: (answers) => answers.role == "Engineer",
     validate: testInput => {
-      if (testInput) {
-        return true;
-      } else {
-        console.log('You need to enter the engineer\'s GetHub username.\n');
-        return false;
-      }
+        if (testInput) {
+            return true;
+        } else {
+            console.log('You need to enter the engineer\'s GetHub username.\n');
+            return false;
+        }
     }
   },{
     type: 'number',
@@ -99,53 +99,50 @@ const infoQuestions = [{
     }];
 
 //Function used as a main.
- function init() {
-  instructionsPrompt();
-  employeeInfoPrompt()
-//   .then(readmeData => {
-//     return generatePage(readmeData);
-//   }).then(readme => {
-//          return writeFile(readme);
-//      }).then(writeFileResponse => {
-//          console.log(writeFileResponse);
-//      }).catch(err => {
-//          console.log(err);
-//      })
-    ;
+ async function init() {
+    instructionsPrompt();
+    employeeInfoPrompt()
+    .then(generatePage(answerArray));
+    // .then(html => {
+    //      return writeFile(html);
+    // }).then(writeFileResponse => {
+    //     console.log(writeFileResponse);
+    // }).catch(err => {
+    //     console.log(err);
+    // });
 }
 
 //Function used to start the actuall app or not.
 function starInputPrompt() {
-  const answer = prompt('Are you ready to start building your Team Profile? (Enter) to start, (q) to exit. ');
-  (answer ? javascriptAbort() : init())
+    const answer = prompt('Are you ready to start building your Team Profile? (Enter) to start, (q) to exit. ');
+    (answer ? javascriptAbort() : init())
 }
 
 //Function used to display the instructions of use for the app.
 const instructionsPrompt = () => {
-  console.log("Please fill out the following form to build up your Team Profile.");
-  console.log("You are required to fill each section.");
+    console.log("Please fill out the following form to build up your Team Profile.");
+    console.log("You are required to fill each section.");
 }
 
 //Function used to start the prompts.
 function employeeInfoPrompt(){
-  console.log("");
-  inquirer.prompt(infoQuestions).then(function (answers) {
-  answerArray.push(answers);
-  count++;
-  console.log(answerArray);
-  const {confirmAddProject} = answers;
-  (confirmAddProject ? employeeInfoPrompt() : answerArray)
-});
+    console.log("");
+    inquirer.prompt(infoQuestions).then(function (answers) {
+        answerArray.push(answers);
+        count++;
+        const {confirmAddProject} = answers;
+        (confirmAddProject ? employeeInfoPrompt() : answerArray)
+    });
 }
 
 //Function used to end the app if the user chose to.
 function javascriptAbort(){
-  console.log("");
-  console.log("------------------------------------------------");
-  console.log("");
-  console.log("The application has ended.");
-  console.log("");
-  //process.exit();
+    console.log("");
+    console.log("------------------------------------------------");
+    console.log("");
+    console.log("The application has ended.");
+    console.log("");
+    //process.exit();
 }
 
 // Function used to ask the user to start the app.
