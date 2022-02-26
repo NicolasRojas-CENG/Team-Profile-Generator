@@ -1,7 +1,7 @@
 //Importing different functions from other files/modules.
 const inquirer = require('inquirer');
 const generatePage = require('./src/html_template');
-// const writeFile = require('./src/generateSite');
+const writeFile = require('./src/generateSite');
 const prompt = require('prompt-sync')();
 
 const answerArray = [];
@@ -87,7 +87,7 @@ const infoQuestions = [{
     }
   },{
     type: 'number',
-    name: 'github',
+    name: 'office',
     message: 'What is the manager\'s office number?',
     when: (answers) => answers.role == "Manager",
     ...validateAnswerNums(),
@@ -99,12 +99,11 @@ const infoQuestions = [{
     }];
 
 //Function used as a main.
- async function init() {
+function init() {
     instructionsPrompt();
     employeeInfoPrompt()
-    .then(generatePage(answerArray));
     // .then(html => {
-    //      return writeFile(html);
+    //     return writeFile(html);
     // }).then(writeFileResponse => {
     //     console.log(writeFileResponse);
     // }).catch(err => {
@@ -131,7 +130,8 @@ function employeeInfoPrompt(){
         answerArray.push(answers);
         count++;
         const {confirmAddProject} = answers;
-        (confirmAddProject ? employeeInfoPrompt() : answerArray)
+        console.log(answerArray);
+        (confirmAddProject ? employeeInfoPrompt() : generatePage(answerArray))
     });
 }
 
