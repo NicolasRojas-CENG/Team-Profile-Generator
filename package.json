@@ -1,0 +1,24 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Simple app to bulid a profile for a team.",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicolasRojas-CENG/Team-Profile-Generator.git"
+  },
+  "author": "nicolasrojas-ceng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicolasRojas-CENG/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/NicolasRojas-CENG/Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0",
+    "jest": "^27.5.1",
+    "prompt-sync": "^4.2.0"
+  }
+}
