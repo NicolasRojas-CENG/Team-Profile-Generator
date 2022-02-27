@@ -1,6 +1,6 @@
 //Importing different functions from other files/modules.
 const inquirer = require('inquirer');
-const generatePage = require('./src/html_template');
+const generatePage = require('./src/js/html_template');
 const prompt = require('prompt-sync')();
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
@@ -42,6 +42,18 @@ const internQuestions = [{
     ...validateAnswerNums(),
   },{
     type: 'input',
+    name: 'email',
+    message: 'What is the email of the intern?',
+    validate: testInput => {
+        if (testInput) {
+        return true;
+        } else {
+            console.log('You need to enter the email of the intern.\n');
+        return false;
+        }
+    }
+},{
+    type: 'input',
     name: 'school',
     message: 'What is the intern\'s school?',
     validate: testInput => {
@@ -77,7 +89,19 @@ const engineerQuestions = [{
     ...validateAnswerNums(),
   },{
     type: 'input',
-    name: 'github',
+    name: 'email',
+    message: 'What is the email of the engineer?',
+    validate: testInput => {
+        if (testInput) {
+        return true;
+        } else {
+            console.log('You need to enter the email of the engineer.\n');
+        return false;
+        }
+    }
+},{
+    type: 'input',
+    name: 'gethub',
     message: 'What is the engineer\'s GetHub username?',
     validate: testInput => {
         if (testInput) {
@@ -115,6 +139,18 @@ const managerQuestions = [{
     message: 'What is the manager\'s id number?',
     ...validateAnswerNums(),
   },{
+    type: 'input',
+    name: 'email',
+    message: 'What is the email of the manager?',
+    validate: testInput => {
+        if (testInput) {
+        return true;
+        } else {
+            console.log('You need to enter the email of the manager.\n');
+        return false;
+        }
+    }
+},{
     type: 'number',
     name: 'office',
     message: 'What is the manager\'s office number?',
@@ -151,14 +187,14 @@ function employeeInfoPrompt(){
         const {next} = answers;
         var object = classSelect(answers)
         answerArray.push(object);
-        if (answers.next == "Intern") {
+        if (next == "Intern") {
             internPrompts();
 
-        } else if (answers.next == "Engineer") {
+        } else if (next == "Engineer") {
             engineerPromts();
         }
         else {
-        (next == "None" ? employeeInfoPrompt() : generatePage(answerArray))
+            generatePage(answerArray);
         }
     });
 }
@@ -174,7 +210,7 @@ function internPrompts() {
             engineerPromts();
         }
         else{
-            return
+            generatePage(answerArray);
         }
     })
 }
@@ -190,7 +226,7 @@ function engineerPromts() {
             engineerPromts();
         }
         else{
-            return
+            generatePage(answerArray);
         }
     })
 }
@@ -209,16 +245,16 @@ function javascriptAbort(){
 starInputPrompt();
 
 function classSelect(answers) {
-    switch (answers.role) {
-        case "Intern":
-            const intern = new Intern(answers.employee, answers.id, answers.school);
-            return intern;
-        case "Engineer":
-            const engineer = new Engineer(answers.employee, answers.id, answers.github);
-            return engineer;
-        default:
-            const manager = new Manager(answers.employee, answers.id, answers.office);
-            return manager;
-            break;
+    if (answers.school) {
+        const intern = new Intern(answers.employee, answers.id, answers.email, answers.school);
+        return intern;
+    }
+    if (answers.gethub) {
+        const engineer = new Engineer(answers.employee, answers.id,answers.email, answers.gethub);
+        return engineer;
+    }
+    if (answers.office) {
+        const manager = new Manager(answers.employee, answers.id,answers.email, answers.office);
+        return manager;
     }
 }
