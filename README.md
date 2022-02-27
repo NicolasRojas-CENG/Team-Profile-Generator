@@ -48,7 +48,25 @@ Read the instructions at the beginning. Then you can simply answer the prompts b
 - Changed the prompts to better fit with the acceptance criteria.
 - Added documentation and ReadMe.
 # <a name="Preview"> Site/App Preview </a>
-I will add this later.
+![Site preview](src/img/site_preview.PNG)
+
+Team Profile Creation:
+
+https://user-images.githubusercontent.com/55503463/155903990-22b06e20-4b2a-4cb0-aa65-6d3cff344301.mp4
+
+Tests:
+
+https://user-images.githubusercontent.com/55503463/155904044-829734d5-3e6f-4ea7-8be3-0518653382d2.mp4
+
+Profile Validation:
+
+https://user-images.githubusercontent.com/55503463/155904049-fdd5426b-7430-4347-a0e5-110fabffa6eb.mp4
+
+Exiting App:
+
+https://user-images.githubusercontent.com/55503463/155904064-f1b5229d-d514-4916-8a03-4b25386f8044.mp4
+
+
 # <a name="Questions"> Questions </a>
   If you have any questions, feel free to contact me through GitHub at
   [nicolasrojas-ceng](https://github.com/nicolasrojas-ceng). <br>
