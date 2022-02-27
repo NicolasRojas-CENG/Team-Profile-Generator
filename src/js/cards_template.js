@@ -1,13 +1,13 @@
 var num = 0;
+//Function used to create the employee's cards.
 generateCards = templateData => {
-    //console.log(templateData);
- const answer = loop(templateData);
-        return`
+    const answer = loop(templateData);
+    return`
         ${answer}
-        `}
-    // })
+    `
+}
 
-
+//Function used to create all the cards.
 function loop  (array) {
     var returnAnswer = "";
     array.forEach(element => {
@@ -18,7 +18,7 @@ function loop  (array) {
                 special = `School: ${element.getSchool()}`;
                 break;
             case "Engineer":
-                special = `GetHub: <a class="text-reset" href="https://github.com/${element.getGethub()}">${element.getGethub()}</a>`;
+                special = `GetHub: <a class="text-reset" href="https://github.com/${element.getGethub()}" target="_blank">${element.getGethub()}</a>`;
                  break;
             case "Manager":
                 special = `Office Number: ${element.getOfficeNumber()}`;

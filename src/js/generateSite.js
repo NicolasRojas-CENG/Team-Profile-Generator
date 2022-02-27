@@ -9,7 +9,6 @@ const writeFile = fileContent => {
         reject(err);
         return;
       }
-
       resolve(
       'Your "Team Profile" website has been created.'
       );

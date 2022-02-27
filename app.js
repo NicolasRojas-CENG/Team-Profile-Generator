@@ -6,9 +6,10 @@ const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 
+//Variable where the user's answers are saved. Array of Objects.
 const answerArray = [];
-var count = 0;
 
+//Function used to validate the number prompts. This is to avoid the Nan output.
 const validateAnswerNums = checks => ({
     validate: input => {
         if (input === '') {
@@ -22,7 +23,7 @@ const validateAnswerNums = checks => ({
     },
 })
 
-//The array of the questions to be asked to the user.
+//The list of arrays of the questions to be asked to the user.
 const internQuestions = [{
     type: 'input',
     name: 'employee',
@@ -199,6 +200,7 @@ function employeeInfoPrompt(){
     });
 }
 
+//Function used for the intern prompts.
 function internPrompts() {
     inquirer.prompt(internQuestions).then(function (answers) {
         var object = classSelect(answers)
@@ -215,6 +217,7 @@ function internPrompts() {
     })
 }
 
+//Function used for the engineer prompts.
 function engineerPromts() {
     inquirer.prompt(engineerQuestions).then(function (answers) {
         var object = classSelect(answers)
@@ -244,6 +247,7 @@ function javascriptAbort(){
 // Function used to ask the user to start the app.
 starInputPrompt();
 
+//Function used to create the objects.
 function classSelect(answers) {
     if (answers.school) {
         const intern = new Intern(answers.employee, answers.id, answers.email, answers.school);
