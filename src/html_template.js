@@ -1,15 +1,9 @@
 //Importing different functions from other files.
-// const {generateTable} = require('./table_template');
-// const {generateBody} = require('./body_template');
-// const {generateBadge} = require('./license_template');
 const writeFile = require('./generateSite');
 const generateCards = require('./cards_template');
 
 //Function used to populate the README, while exporting it at the same time.
 module.exports = templateData => {
-  // return `${templateData.forEach(element => {
-     console.log(templateData);
-  // })}`;
   const content = `
   <!DOCTYPE html>
   <html lang="en">
@@ -31,5 +25,4 @@ module.exports = templateData => {
 </html>
   `;
   writeFile(content) ? console.log("File created!") : console.log("Something went wrong!")
-  //return ;
 };

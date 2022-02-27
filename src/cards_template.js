@@ -13,15 +13,15 @@ function loop  (array) {
     array.forEach(element => {
         num++;
         var special = "";
-        switch (element.role) {
+        switch (element.getRole()) {
             case "Intern":
-                special = `School: ${element.school}`
+                special = `School: ${element.getSchool()}`;
                 break;
             case "Engineer":
-                special = `GitHub: ${element.github}`
+                special = `GetHub: <a class="text-reset" href="https://github.com/${element.getGethub()}">${element.getGethub()}</a>`;
                  break;
-            default:
-                special = `Office Number: ${element.office}`
+            case "Manager":
+                special = `Office Number: ${element.getOfficeNumber()}`;
                 break;
         }
         returnAnswer = returnAnswer + `
@@ -31,9 +31,9 @@ function loop  (array) {
                     <h2 class="card-title text-center">Member ${num} </h2>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item bg-dark">Name: ${element.employee}</li>
-                <li class="list-group-item bg-dark">Role: ${element.role}</li>
-                <li class="list-group-item bg-dark">Email: <a href="mailto:${element.email}"> ${element.email}</a></li>
+                <li class="list-group-item bg-dark">Name: ${element.getName()}</li>
+                <li class="list-group-item bg-dark">Role: ${element.getRole()}</li>
+                <li class="list-group-item bg-dark">Email: <a class="text-reset" href="mailto:${element.getEmail()}"> ${element.getEmail()}</a></li>
                 <li class="list-group-item bg-dark">${special}</li>
                 </ul>
             </div>
